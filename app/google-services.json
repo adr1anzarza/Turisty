@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "282401337595",
+    "firebase_url": "https://turisty.firebaseio.com",
+    "project_id": "turisty",
+    "storage_bucket": "turisty.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282401337595:android:fef33f4a59b74b8e31005e",
+        "android_client_info": {
+          "package_name": "com.adrian.zarza.turisty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282401337595-h6j4p4inv3ik4egvopblgpja791jphb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adrian.zarza.turisty",
+            "certificate_hash": "1f6630da30eec9ad9a2ffac85b720e6cb3923094"
+          }
+        },
+        {
+          "client_id": "282401337595-cek12dj0llh6ihi174aeqn0n49njv4e0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDdQgVcScI_ktoBumtjIfL2704Bj1F3ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282401337595-cek12dj0llh6ihi174aeqn0n49njv4e0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
