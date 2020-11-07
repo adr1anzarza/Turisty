@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/TaskFragment">
+    <fragment
+        android:id="@+id/TaskFragment"
+        android:name="com.adrian.zarza.turisty.task.TaskFragment"
+        android:label="First fragment"
+        tools:layout="@layout/fragment_task">
+
+        <!--action
+            android:id="@+id/action_Task_Fragment_to_Task_Detail_Fragment"
+            app:destination="@id/TaskDetailFragment" /-->
+    </fragment>
+    <!--fragment
+        android:id="@+id/TaskDetailFragment"
+        android:name="com.example.adrian.todolist.taskDetail.TaskDetailFragment"
+        android:label="@string/task_detail_fragment_label"
+        tools:layout="@layout/fragment_detail_task">
+        <argument
+            android:name="taskKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_task_detail_to_TaskFragment"
+            app:destination="@id/TaskFragment" />
+    </fragment-->
+</navigation>
