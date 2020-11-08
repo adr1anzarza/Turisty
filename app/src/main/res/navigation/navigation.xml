@@ -8,11 +8,14 @@
         android:id="@+id/TaskFragment"
         android:name="com.adrian.zarza.turisty.place.PlacesFragment"
         android:label="First fragment"
-        tools:layout="@layout/fragment_places">
-
-        <!--action
-            android:id="@+id/action_Task_Fragment_to_Task_Detail_Fragment"
-            app:destination="@id/TaskDetailFragment" /-->
+        tools:layout="@layout/fragment_places"/>
+    <fragment
+        android:id="@+id/placeDetailFragment"
+        android:name="com.adrian.zarza.turisty.placeDetail.PlaceDetailFragment"
+        android:label="PlaceDetailFragment" >
+        <action
+            android:id="@+id/action_placeDetailFragment_to_TaskFragment"
+            app:destination="@id/TaskFragment" />
     </fragment>
     <!--fragment
         android:id="@+id/TaskDetailFragment"

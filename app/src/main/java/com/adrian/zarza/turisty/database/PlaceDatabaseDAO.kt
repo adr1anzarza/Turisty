@@ -15,21 +15,21 @@ interface PlaceDatabaseDAO{
     @Update
     fun update(task: Place)
 
-    @Query("SELECT * FROM todo_place_table WHERE taskId = :key")
+    @Query("SELECT * FROM todo_place_table WHERE placeId = :key")
     fun get(key: Long): Place?
 
     @Query("DELETE FROM todo_place_table")
     fun clear()
 
-    @Query("SELECT * FROM todo_place_table ORDER BY taskId DESC")
-    fun getAllTasks(): LiveData<List<Place>>
+    @Query("SELECT * FROM todo_place_table ORDER BY placeId DESC")
+    fun getAllPlaces(): LiveData<List<Place>>
 
-    @Query("SELECT * FROM todo_place_table ORDER BY taskId DESC LIMIT 1")
-    fun getLastTask(): Place?
+    @Query("SELECT * FROM todo_place_table ORDER BY placeId DESC LIMIT 1")
+    fun getLastPlace(): Place?
 
-    @Query("SELECT * FROM todo_place_table WHERE taskId = :key")
-    fun getTaskWithId(key: Long): LiveData<Place>
+    @Query("SELECT * FROM todo_place_table WHERE placeId = :key")
+    fun getPlaceWithId(key: Long): LiveData<Place>
 
-    @Query("DELETE FROM todo_place_table WHERE taskId = :key")
+    @Query("DELETE FROM todo_place_table WHERE placeId = :key")
     fun deleteWithId(key: Long) : Int
 }

@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "todo_place_table")
 data class Place  @JvmOverloads constructor(
     @ColumnInfo(name = "title_place")
-    var titleTask: String,
+    var titlePlace: String,
 
     @ColumnInfo(name = "description_place")
-    var descriptionTask: String,
+    var descriptionPlace: String,
 
     @ColumnInfo(name = "latitude_longitude")
     var latitudeLongitude: String,
@@ -19,5 +19,5 @@ data class Place  @JvmOverloads constructor(
     var address: String,
 
     @PrimaryKey(autoGenerate = true)
-    var taskId: Long = 0L
+    var placeId: Long = 0L
 )

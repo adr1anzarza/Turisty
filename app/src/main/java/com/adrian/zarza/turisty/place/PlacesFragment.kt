@@ -5,7 +5,12 @@ import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.adrian.zarza.turisty.R
+import com.adrian.zarza.turisty.database.PlaceDatabase
 import com.adrian.zarza.turisty.databinding.FragmentPlacesBinding
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.tasks.Task
@@ -13,6 +18,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
 class PlacesFragment : Fragment() {
+
+    lateinit var taskViewModel: PlaceViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +33,54 @@ class PlacesFragment : Fragment() {
         // Reference to the application context
         val application = requireNotNull(this.activity).application
 
+        //Reference to DAO database
+        val dataSource = PlaceDatabase.getInstance(application).placeDatabaseDao
+
+        //Instance of the VMF
+        val viewModelFactory = PlaceViewModelFactory(dataSource, application)
+
+        //Reference to the VM
+        taskViewModel = ViewModelProviders.of(this, viewModelFactory).get(PlaceViewModel::class.java)
+
+        val adapter = PlaceAdapter(PlaceAdapter.PlaceListener { taskId ->
+            taskViewModel.onTaskClicked(taskId)
+        })
+
+        binding.placeList.adapter = adapter
+
+        binding.lifecycleOwner = this
+
+        binding.viewModel = taskViewModel
+
         setHasOptionsMenu(true)
+
+        val manager = LinearLayoutManager(activity)
+        binding.placeList.layoutManager = manager
+
+        taskViewModel.tasks.observe(viewLifecycleOwner, Observer { taskList ->
+            taskList?.let {
+                adapter.submitList(taskList)
+            }
+        })
+
+        taskViewModel.navigateToTaskDetail.observe(viewLifecycleOwner, Observer { taskId ->
+            taskId?.let {
+//                this.findNavController().navigate(TaskFragmentDirections
+//                        .actionTaskFragmentToTaskDetailFragment(taskId))
+                taskViewModel.onTaskDetailNavigated()
+            }
+        })
+
+        taskViewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+            if (it == true) { // Observed state is true.
+                Snackbar.make(
+                        requireActivity().findViewById(android.R.id.content),
+                        getString(R.string.list_empty),
+                        Snackbar.LENGTH_SHORT // How long to display the message.
+                ).show()
+                taskViewModel.doneShowingSnackbar()
+            }
+        })
 
         return binding.root
     }

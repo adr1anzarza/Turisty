@@ -22,7 +22,7 @@ class PlaceViewModel(val database: PlaceDatabaseDAO,
 
     private var lastTask = MutableLiveData<Place?>()
 
-    private var _tasks = database.getAllTasks()
+    private var _tasks = database.getAllPlaces()
 
     val tasks : LiveData<List<Place>> = _tasks
 
@@ -58,7 +58,7 @@ class PlaceViewModel(val database: PlaceDatabaseDAO,
 
     private suspend fun getLastTaskFromDB(): Place? {
         return withContext(Dispatchers.IO){
-            var task = database.getLastTask()
+            var task = database.getLastPlace()
             task
         }
     }

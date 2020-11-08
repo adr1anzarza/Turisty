@@ -39,7 +39,7 @@ class PlaceAdapter(val clickListener: PlaceListener) : ListAdapter<Place, PlaceA
 
     class PlaceDiffCallback : DiffUtil.ItemCallback<Place>() {
         override fun areItemsTheSame(oldItem: Place, newItem: Place): Boolean {
-            return oldItem.taskId == newItem.taskId
+            return oldItem.placeId == newItem.placeId
         }
 
         override fun areContentsTheSame(oldItem: Place, newItem: Place): Boolean {
@@ -48,7 +48,7 @@ class PlaceAdapter(val clickListener: PlaceListener) : ListAdapter<Place, PlaceA
     }
 
     class PlaceListener(val clickListener: (taskId: Long) -> Unit) {
-        fun onClick(task: Place) = clickListener(task.taskId)
+        fun onClick(task: Place) = clickListener(task.placeId)
     }
 
 }

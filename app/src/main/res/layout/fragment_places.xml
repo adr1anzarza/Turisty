@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--data>
+    <data>
         <variable
             name="viewModel"
-            type="com.example.adrian.todolist.tasks.TaskViewModel" />
-    </data-->
+            type="com.adrian.zarza.turisty.place.PlaceViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         tools:context=".tasks.TaskFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sleep_list"
+            android:id="@+id/place_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
