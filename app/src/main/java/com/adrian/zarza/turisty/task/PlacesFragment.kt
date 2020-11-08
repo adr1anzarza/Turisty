@@ -3,18 +3,16 @@ package com.adrian.zarza.turisty.task
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.adrian.zarza.turisty.R
-import com.adrian.zarza.turisty.databinding.FragmentTaskBinding
+import com.adrian.zarza.turisty.databinding.FragmentPlacesBinding
 import com.firebase.ui.auth.AuthUI
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
-class TaskFragment : Fragment() {
+class PlacesFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -22,8 +20,8 @@ class TaskFragment : Fragment() {
     ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
-        val binding: FragmentTaskBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_task, container, false)
+        val binding: FragmentPlacesBinding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_places, container, false)
 
         // Reference to the application context
         val application = requireNotNull(this.activity).application

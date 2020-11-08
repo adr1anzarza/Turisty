@@ -13,7 +13,6 @@ import com.firebase.ui.auth.AuthUI.IdpConfig.EmailBuilder
 import com.firebase.ui.auth.AuthUI.IdpConfig.GoogleBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -52,10 +51,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun createSignInIntent() {
+    private fun createSignInIntent() {
         // [START auth_fui_create_intent]
         // Choose authentication providers
-        val providers = Arrays.asList(
+        val providers = listOf(
                 EmailBuilder().build(),
                 GoogleBuilder().build())
 

@@ -6,9 +6,9 @@
     app:startDestination="@id/TaskFragment">
     <fragment
         android:id="@+id/TaskFragment"
-        android:name="com.adrian.zarza.turisty.task.TaskFragment"
+        android:name="com.adrian.zarza.turisty.task.PlacesFragment"
         android:label="First fragment"
-        tools:layout="@layout/fragment_task">
+        tools:layout="@layout/fragment_places">
 
         <!--action
             android:id="@+id/action_Task_Fragment_to_Task_Detail_Fragment"
