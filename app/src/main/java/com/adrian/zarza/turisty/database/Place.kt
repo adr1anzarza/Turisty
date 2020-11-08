@@ -16,7 +16,7 @@ data class Place  @JvmOverloads constructor(
     var latitudeLongitude: String,
 
     @ColumnInfo(name = "place_address")
-    var address: String,
+    var addressPlace: String,
 
     @PrimaryKey(autoGenerate = true)
     var placeId: Long = 0L

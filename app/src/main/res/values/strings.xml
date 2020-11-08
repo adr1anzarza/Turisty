@@ -13,4 +13,6 @@
     <string name="warning_empty">Campos vacíos</string>
     <string name="eliminar">Eliminar</string>
     <string name="a_d_nde_vamos">¿A dónde vamos?</string>
+    <string name="direcci_n">Dirección</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
 </resources>

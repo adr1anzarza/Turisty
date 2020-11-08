@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:text="@string/a_d_nde_vamos"
         android:textStyle="bold"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.105"
@@ -31,15 +32,15 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="354dp"
+        android:layout_height="47dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/lugar"
         android:text="@={viewModel.placeTitleWord}"
         app:layout_constraintEnd_toEndOf="@+id/textview_second"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="@+id/textview_second"
         app:layout_constraintTop_toBottomOf="@+id/textview_second"
         app:setPlaceDescriptionText="@{viewModel.task}" />
@@ -51,20 +52,46 @@
         android:layout_marginTop="32dp"
         android:text="@string/qu_hay_ah"
         android:textStyle="bold"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textview_second"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <EditText
         android:id="@+id/editText2"
         setPlaceDescriptionText="@{viewModel.task}"
-        android:layout_width="352dp"
-        android:layout_height="197dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="354dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="12dp"
         android:gravity="top"
         android:hint="@string/descripci_n"
         android:text="@={viewModel.placeDescriptionWord}"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/adres_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/direcci_n"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+
+    <TextView
+        android:id="@+id/address_item_text_view"
+        android:layout_width="354dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@={viewModel.placeAddressWord}"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/adres_text_view"
+        app:layout_constraintHorizontal_bias="0.003"
+        app:layout_constraintStart_toStartOf="@+id/adres_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/adres_text_view" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

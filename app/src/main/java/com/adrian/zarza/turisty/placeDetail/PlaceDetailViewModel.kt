@@ -25,6 +25,7 @@ class PlaceDetailViewModel(
 
     private var titlePlace = MutableLiveData<String>()
     private var descriptionPlace = MutableLiveData<String>()
+    private var addressPlace = MutableLiveData<String>()
 
     private val _navigateToPlaceFragment =  MutableLiveData<Boolean?>()
 
@@ -48,6 +49,13 @@ class PlaceDetailViewModel(
             }
         }
 
+    @Bindable var placeAddressWord : String? = addressPlace.value
+        set(value) {
+            if (field != value) {
+                field = value
+            }
+        }
+
     @Bindable
     fun getTask() = place
 
@@ -55,6 +63,7 @@ class PlaceDetailViewModel(
         place = database.getPlaceWithId(placeKey)
         titlePlace.value = place.value?.titlePlace
         descriptionPlace.value = place.value?.descriptionPlace
+        addressPlace.value = place.value?.addressPlace
 
         initializeLastPlace()
     }
