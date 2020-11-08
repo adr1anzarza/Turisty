@@ -43,7 +43,7 @@
         app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="@+id/textview_second"
         app:layout_constraintTop_toBottomOf="@+id/textview_second"
-        app:setPlaceDescriptionText="@{viewModel.task}" />
+        app:setPlaceTitleText="@{viewModel.task}" />
 
     <TextView
         android:id="@+id/textView"
