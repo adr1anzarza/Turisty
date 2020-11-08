@@ -27,7 +27,7 @@ class PlaceDetailFragment : Fragment() {
         //val arguments = PlaceDetailFragmentArgs.fromBundle(requireArguments())
 
         val dataSource = PlaceDatabase.getInstance(application).placeDatabaseDao
-        val viewModelFactory = PlaceDetailViewModelFactory(0L, dataSource)
+        val viewModelFactory = PlaceDetailViewModelFactory(0L, dataSource)//arguments.placeKey
 
         placeDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(PlaceDetailViewModel::class.java)
 

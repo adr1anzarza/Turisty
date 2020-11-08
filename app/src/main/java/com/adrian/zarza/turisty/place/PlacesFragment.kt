@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class PlacesFragment : Fragment() {
 
-    lateinit var taskViewModel: PlaceViewModel
+    lateinit var placeViewModel: PlaceViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -40,45 +40,45 @@ class PlacesFragment : Fragment() {
         val viewModelFactory = PlaceViewModelFactory(dataSource, application)
 
         //Reference to the VM
-        taskViewModel = ViewModelProviders.of(this, viewModelFactory).get(PlaceViewModel::class.java)
+        placeViewModel = ViewModelProviders.of(this, viewModelFactory).get(PlaceViewModel::class.java)
 
         val adapter = PlaceAdapter(PlaceAdapter.PlaceListener { taskId ->
-            taskViewModel.onTaskClicked(taskId)
+            placeViewModel.onTaskClicked(taskId)
         })
 
         binding.placeList.adapter = adapter
 
         binding.lifecycleOwner = this
 
-        binding.viewModel = taskViewModel
+        binding.viewModel = placeViewModel
 
         setHasOptionsMenu(true)
 
         val manager = LinearLayoutManager(activity)
         binding.placeList.layoutManager = manager
 
-        taskViewModel.tasks.observe(viewLifecycleOwner, Observer { taskList ->
+        placeViewModel.places.observe(viewLifecycleOwner, Observer { taskList ->
             taskList?.let {
                 adapter.submitList(taskList)
             }
         })
 
-        taskViewModel.navigateToTaskDetail.observe(viewLifecycleOwner, Observer { taskId ->
-            taskId?.let {
-//                this.findNavController().navigate(TaskFragmentDirections
-//                        .actionTaskFragmentToTaskDetailFragment(taskId))
-                taskViewModel.onTaskDetailNavigated()
+        placeViewModel.navigateToMapsFragment.observe(viewLifecycleOwner, Observer { navigate ->
+            navigate?.let {
+//                this.findNavController().navigate(PlacesFragmentDirections
+//                        .actionTaskFragmentToTaskDetailFragment(navigate))
+                placeViewModel.onMapsFragmentNavigated()
             }
         })
 
-        taskViewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+        placeViewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
             if (it == true) { // Observed state is true.
                 Snackbar.make(
                         requireActivity().findViewById(android.R.id.content),
                         getString(R.string.list_empty),
                         Snackbar.LENGTH_SHORT // How long to display the message.
                 ).show()
-                taskViewModel.doneShowingSnackbar()
+                placeViewModel.doneShowingSnackbar()
             }
         })
 

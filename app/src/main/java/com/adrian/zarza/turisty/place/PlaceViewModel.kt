@@ -20,46 +20,49 @@ class PlaceViewModel(val database: PlaceDatabaseDAO,
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private var lastTask = MutableLiveData<Place?>()
+    private var lastPlace = MutableLiveData<Place?>()
 
-    private var _tasks = database.getAllPlaces()
+    private var _places = database.getAllPlaces()
 
-    val tasks : LiveData<List<Place>> = _tasks
+    val places : LiveData<List<Place>> = _places
 
     private var _showSnackbarEvent = MutableLiveData<Boolean>()
 
     val showSnackBarEvent: LiveData<Boolean> = _showSnackbarEvent
 
-    private val _navigateToTaskDetail = MutableLiveData<Long>()
-    val navigateToTaskDetail= _navigateToTaskDetail
+    private val _navigateToMapsFragment = MutableLiveData<Boolean>()
+    val navigateToMapsFragment= _navigateToMapsFragment
+
+    private val _navigateToMapsFragmentWithPlaceId = MutableLiveData<Long>()
+    val navigateToMapsFragmentWithPlaceId= _navigateToMapsFragment
 
 
     init {
-        initializeLastTask()
+        initializeLastPlace()
     }
 
-    fun onTaskClicked(taskId: Long){
-        _navigateToTaskDetail.value = taskId
+    fun onTaskClicked(placeId: Long){
+        _navigateToMapsFragmentWithPlaceId.value = placeId
     }
 
-    fun onTaskDetailNavigated() {
-        _navigateToTaskDetail.value = null
+    fun onMapsFragmentNavigated() {
+        _navigateToMapsFragment.value = null
     }
 
     fun doneShowingSnackbar() {
         _showSnackbarEvent.value = false
     }
 
-    private fun initializeLastTask() {
+    private fun initializeLastPlace() {
         uiScope.launch {
-            lastTask.value = getLastTaskFromDB()
+            lastPlace.value = getLastPlaceFromDB()
         }
     }
 
-    private suspend fun getLastTaskFromDB(): Place? {
+    private suspend fun getLastPlaceFromDB(): Place? {
         return withContext(Dispatchers.IO){
-            var task = database.getLastPlace()
-            task
+            var place = database.getLastPlace()
+            place
         }
     }
 
@@ -67,10 +70,14 @@ class PlaceViewModel(val database: PlaceDatabaseDAO,
         uiScope.launch {
             //val newTask = Place("", "")
             //insert(newTask)
-            lastTask.value = getLastTaskFromDB()
+            lastPlace.value = getLastPlaceFromDB()
             //onTaskClicked(newTask.taskId)
         }
 
+    }
+
+    fun onNewPlace(){
+        navigateToMapsFragment.value = true
     }
 
     suspend fun insert(night: Place){
@@ -82,7 +89,7 @@ class PlaceViewModel(val database: PlaceDatabaseDAO,
     fun onClear() {
         uiScope.launch {
             clear()
-            lastTask.value = null
+            lastPlace.value = null
         }
         _showSnackbarEvent.value = true
     }

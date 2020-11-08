@@ -108,15 +108,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_geolocate:
-
-                // COMMENTED OUT UNTIL WE DEFINE THE METHOD
-                // Present the current place picker
                 pickCurrentPlace();
                 return true;
 
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
         }
@@ -140,10 +135,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-        //
-        // PASTE THE LINES BELOW THIS COMMENT
-        //
-
         // Enable the zoom controls for the map
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
@@ -156,7 +147,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.clear();
                 MarkerOptions marker = new MarkerOptions().position(new LatLng(point.latitude, point.longitude)).title("New Marker");
                 mMap.addMarker(marker);
-                System.out.println(point.latitude+"---"+ point.longitude);
             }
         });
 

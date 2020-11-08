@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- "Locate me", should appear as action button if possible -->
     <item
         android:id="@+id/action_geolocate"
         android:icon="@drawable/ic_geolocate"

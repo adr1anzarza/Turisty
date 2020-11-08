@@ -3,19 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation"
-    app:startDestination="@id/TaskFragment">
+    app:startDestination="@id/placeFragment">
     <fragment
-        android:id="@+id/TaskFragment"
+        android:id="@+id/placeFragment"
         android:name="com.adrian.zarza.turisty.place.PlacesFragment"
         android:label="First fragment"
-        tools:layout="@layout/fragment_places"/>
+        tools:layout="@layout/fragment_places">
+        <action
+            android:id="@+id/action_HomeFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/placeDetailFragment"
         android:name="com.adrian.zarza.turisty.placeDetail.PlaceDetailFragment"
-        android:label="PlaceDetailFragment" >
+        android:label="PlaceDetailFragment"
+        tools:layout="@layout/fragment_detail_place">
         <action
             android:id="@+id/action_placeDetailFragment_to_TaskFragment"
-            app:destination="@id/TaskFragment" />
+            app:destination="@id/placeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.adrian.zarza.turisty.maps.MapsFragment"
+        android:label="MapsFragment"
+        tools:layout="@layout/fragment_maps">
+        <action
+            android:id="@+id/action_mapsFragment_to_placeDetailFragment"
+            app:destination="@id/placeDetailFragment" />
     </fragment>
     <!--fragment
         android:id="@+id/TaskDetailFragment"
