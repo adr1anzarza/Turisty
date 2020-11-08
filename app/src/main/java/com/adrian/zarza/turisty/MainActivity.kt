@@ -17,9 +17,9 @@ import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
-    val RC_SIGN_IN = 1
+    private val RCSIGNIN = 1
     var mFirebaseAuth: FirebaseAuth? = null
-    var mFirebaseAuthListener: AuthStateListener? = null
+    private var mFirebaseAuthListener: AuthStateListener? = null
     var mUsername: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                         .setIsSmartLockEnabled(false)
                         .setAvailableProviders(providers)
                         .build(),
-                RC_SIGN_IN)
+                RCSIGNIN)
         // [END auth_fui_create_intent]
     }
 

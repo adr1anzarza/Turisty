@@ -6,7 +6,7 @@
     app:startDestination="@id/TaskFragment">
     <fragment
         android:id="@+id/TaskFragment"
-        android:name="com.adrian.zarza.turisty.task.PlacesFragment"
+        android:name="com.adrian.zarza.turisty.place.PlacesFragment"
         android:label="First fragment"
         tools:layout="@layout/fragment_places">
 

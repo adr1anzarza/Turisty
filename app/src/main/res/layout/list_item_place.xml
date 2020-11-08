@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="task"
+            type="com.adrian.zarza.turisty.database.Place" />
+        <variable
+            name="clickListener"
+            type="com.adrian.zarza.turisty.place.PlaceAdapter.PlaceListener"/>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CACACA"
+        android:clickable="true"
+        android:focusable="true"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="2dp">
+<!--        android:onClick="@{() -> clickListener.onClick(task)}"-->
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/title_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.216"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/lorem"
+                android:textStyle="bold"/>
+<!--                app:titleTaskString="@{task}"/>-->
+
+            <TextView
+                android:id="@+id/description_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/title_item"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/checkbox_item"
+                app:layout_constraintStart_toStartOf="@+id/title_item"
+                app:layout_constraintTop_toBottomOf="@+id/title_item"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="@tools:sample/lorem"/>
+<!--                app:descriptionTaskString="@{task}"/>-->
+
+            <CheckBox
+                android:id="@+id/checkbox_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.046"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.516" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

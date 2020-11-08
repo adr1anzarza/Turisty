@@ -1,4 +1,4 @@
-package com.adrian.zarza.turisty.task
+package com.adrian.zarza.turisty.place
 
 import android.os.Bundle
 import android.view.*
