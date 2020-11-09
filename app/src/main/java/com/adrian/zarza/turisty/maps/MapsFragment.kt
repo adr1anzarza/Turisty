@@ -228,8 +228,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                             Log.i(TAG, String.format("Place " + currPlace.name
                                     + " has likelihood: " + placeLikelihood.likelihood
                                     + " at " + currLatLng))
-                            if (i > count)
-                                break
+//                            if (i > count)
+//                                break
                         }
                         fillPlacesList()
                     } else {
@@ -312,9 +312,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 .title(mLikelyPlaceNames[position])
                 .position(markerLatLng)
                 .snippet(markerSnippet))
-        Toast.makeText(context, "Title:" + mLikelyPlaceNames[position]
-                + "adress: " + mLikelyPlaceAddresses[position]
-                + "latlong: " + mLikelyPlaceLatLngs[position], Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, "Title:" + mLikelyPlaceNames[position]
+//                + "adress: " + mLikelyPlaceAddresses[position]
+//                + "latlong: " + mLikelyPlaceLatLngs[position], Toast.LENGTH_SHORT).show()
 
         mSelectedDirection = mLikelyPlaceAddresses[position]
         mSelectedLatLng = mLikelyPlaceLatLngs[position]
