@@ -27,9 +27,9 @@ class PlaceDetailViewModel(
     private var descriptionPlace = MutableLiveData<String>()
     private var addressPlace = MutableLiveData<String>()
 
-    private val _navigateToPlaceFragment =  MutableLiveData<Boolean?>()
+    private val _navigateToPlaceFragment =  MutableLiveData<Boolean>()
 
-    val navigateToPlaceFragment: LiveData<Boolean?> = _navigateToPlaceFragment
+    val navigateToPlaceFragment: LiveData<Boolean> = _navigateToPlaceFragment
 
     private var _showSnackbarEvent = MutableLiveData<Boolean>()
 
@@ -68,6 +68,10 @@ class PlaceDetailViewModel(
         initializeLastPlace()
     }
 
+    private fun isNewInsertion(place : LiveData<Place>): Boolean{
+        return place.value == null
+    }
+
     private fun initializeLastPlace() {
         uiScope.launch {
             lastPlace.value = getLastPlaceFromDB()
@@ -93,23 +97,44 @@ class PlaceDetailViewModel(
         if(placeTitleWord == null || placeDescriptionWord == null){
             _showSnackbarEvent.value = true
         } else {
-            uiScope.launch {
-                withContext(Dispatchers.IO) {
-                    if (database.get(placeKey) == null) {
-                        val lastPlace = lastPlace
-                        lastPlace.value?.titlePlace = placeTitleWord.toString()
-                        lastPlace.value?.descriptionPlace = placeDescriptionWord.toString()
-                        database.update(lastPlace.value!!)
+            if(!isNewInsertion(place)) {
+                uiScope.launch {
+                    withContext(Dispatchers.IO) {
+                        if (database.get(placeKey) == null) {
+                            val lastPlace = lastPlace
+                            lastPlace.value?.titlePlace = placeTitleWord.toString()
+                            lastPlace.value?.descriptionPlace = placeDescriptionWord.toString()
+                            database.update(lastPlace.value!!)
 
-                    } else {
-                        val lastPlace = database.get(placeKey) ?: return@withContext
-                        lastPlace.titlePlace = placeTitleWord.toString()
-                        lastPlace.descriptionPlace = placeDescriptionWord.toString()
-                        database.update(lastPlace)
+                        } else {
+                            val lastPlace = database.get(placeKey) ?: return@withContext
+                            lastPlace.titlePlace = placeTitleWord.toString()
+                            lastPlace.descriptionPlace = placeDescriptionWord.toString()
+                            database.update(lastPlace)
+                        }
                     }
+                    _navigateToPlaceFragment.value = true
                 }
-                _navigateToPlaceFragment.value = true
+            } else {
+                onNewInsertion()
             }
+        }
+    }
+
+    private fun onNewInsertion(){
+        uiScope.launch {
+            val newPlace = Place("Adrix", "Hogar", "LatLong","dirección")
+            insert(newPlace)
+            lastPlace.value = getLastPlaceFromDB()
+            //onTaskClicked(newTask.taskId)
+        }
+        _navigateToPlaceFragment.value = true
+    }
+
+
+    private suspend fun insert(place: Place){
+        withContext(Dispatchers.IO){
+            database.insert(place)
         }
     }
 

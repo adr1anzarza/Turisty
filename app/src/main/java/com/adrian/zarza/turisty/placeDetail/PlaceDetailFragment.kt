@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.adrian.zarza.turisty.R
 import com.adrian.zarza.turisty.database.PlaceDatabase
 import com.adrian.zarza.turisty.databinding.FragmentDetailPlaceBinding
@@ -39,8 +40,8 @@ class PlaceDetailFragment : Fragment() {
 
         placeDetailViewModel.navigateToPlaceFragment.observe(viewLifecycleOwner, Observer {
             if (it == true) { // Observed state is true.
-//                this.findNavController().navigate(
-//                    TaskDetailFragmentDirections.actionTaskDetailToTaskFragment())
+               this.findNavController().navigate(
+                    PlaceDetailFragmentDirections.actionPlaceDetailFragmentToTaskFragment())
                 placeDetailViewModel.doneNavigating()
             }
         })

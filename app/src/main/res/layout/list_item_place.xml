@@ -48,6 +48,7 @@
                 app:layout_constraintHorizontal_bias="0.056"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:titlePlaceString="@{task}"
                 tools:text="@tools:sample/lorem" />
 
             <TextView
@@ -60,7 +61,8 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/title_item"
                 app:layout_constraintTop_toBottomOf="@+id/title_item"
-                tools:text="@tools:sample/lorem" />
+                tools:text="@tools:sample/lorem"
+                app:descriptionPlaceString="@{task}"/>
 
             <TextView
                 android:id="@+id/address_item"
@@ -72,6 +74,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/title_item"
                 app:layout_constraintTop_toBottomOf="@+id/description_item"
+                app:addressPlaceString="@{task}"
                 tools:text="@tools:sample/lorem" />
             <!--                app:descriptionTaskString="@{task}"/>-->
 

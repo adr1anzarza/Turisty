@@ -79,7 +79,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 inflater, R.layout.fragment_maps, container, false)
 
         val application = requireNotNull(this.activity).application
-        //val arguments = FragmentArgs.fromBundle(requireArguments())
+        val arguments = MapsFragmentArgs.fromBundle(requireArguments())
         val dataSource = PlaceDatabase.getInstance(application).placeDatabaseDao
 
         //Instance of the VMF
