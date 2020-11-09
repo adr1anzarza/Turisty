@@ -43,7 +43,7 @@
         app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="@+id/textview_second"
         app:layout_constraintTop_toBottomOf="@+id/textview_second"
-        app:setPlaceTitleText="@{viewModel.task}" />
+        app:setPlaceTitleText="@{viewModel.place}" />
 
     <TextView
         android:id="@+id/textView"
@@ -58,7 +58,7 @@
 
     <EditText
         android:id="@+id/editText2"
-        setPlaceDescriptionText="@{viewModel.task}"
+        setPlaceDescriptionText="@{viewModel.place}"
         android:layout_width="354dp"
         android:layout_height="91dp"
         android:layout_marginTop="12dp"
@@ -88,6 +88,7 @@
         android:layout_marginTop="8dp"
         android:text="@={viewModel.placeAddressWord}"
         android:textSize="16sp"
+        setAddressText="@{viewModel.place}"
         app:layout_constraintEnd_toEndOf="@+id/adres_text_view"
         app:layout_constraintHorizontal_bias="0.003"
         app:layout_constraintStart_toStartOf="@+id/adres_text_view"

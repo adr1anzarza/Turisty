@@ -13,6 +13,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -20,8 +21,6 @@ import androidx.navigation.fragment.findNavController
 import com.adrian.zarza.turisty.R
 import com.adrian.zarza.turisty.database.PlaceDatabase
 import com.adrian.zarza.turisty.databinding.FragmentMapsBinding
-import com.adrian.zarza.turisty.place.PlaceViewModelFactory
-import com.adrian.zarza.turisty.place.PlacesFragmentDirections
 import androidx.lifecycle.Observer
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -70,6 +69,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mLikelyPlaceAttributions: ArrayList<String>
     private lateinit var mLikelyPlaceLatLngs: ArrayList<LatLng>
 
+    //Selected location
+    private lateinit var mSelectedDirection: String
+    private lateinit var mSelectedLatLng: LatLng
+    private lateinit var bundle: Bundle
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -81,7 +85,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         val application = requireNotNull(this.activity).application
         val arguments = MapsFragmentArgs.fromBundle(requireArguments())
         val dataSource = PlaceDatabase.getInstance(application).placeDatabaseDao
+        mSelectedLatLng = mDefaultLocation
+        mSelectedDirection = "Sydney"
 
+        bundle = bundleOf("latlong" to mSelectedLatLng,"direction" to mSelectedDirection)
         //Instance of the VMF
         val viewModelFactory = MapsViewModelFactory(dataSource, application)
 
@@ -110,8 +117,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         mapViewModel.navigateToPlaceDetailFragment.observe(viewLifecycleOwner, Observer { navigate ->
             navigate?.let {
-                this.findNavController().navigate(MapsFragmentDirections
-                        .actionMapsFragmentToPlaceDetailFragment())
+                this.findNavController().navigate(R.id.action_mapsFragment_to_placeDetailFragment,bundle)
                 mapViewModel.onMapsFragmentNavigated()
             }
         })
@@ -138,6 +144,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mMap = googleMap
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
+        //Default latlong
+        mSelectedLatLng = sydney
         mMap?.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap?.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
@@ -307,6 +315,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         Toast.makeText(context, "Title:" + mLikelyPlaceNames[position]
                 + "adress: " + mLikelyPlaceAddresses[position]
                 + "latlong: " + mLikelyPlaceLatLngs[position], Toast.LENGTH_SHORT).show()
+
+        mSelectedDirection = mLikelyPlaceNames[position]
+        mSelectedLatLng = mLikelyPlaceLatLngs[position]
+
+        bundle = bundleOf("direction" to mSelectedDirection)
 
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(markerLatLng))
     }

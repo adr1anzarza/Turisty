@@ -10,11 +10,14 @@ import androidx.navigation.fragment.findNavController
 import com.adrian.zarza.turisty.R
 import com.adrian.zarza.turisty.database.PlaceDatabase
 import com.adrian.zarza.turisty.databinding.FragmentDetailPlaceBinding
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
 
 class PlaceDetailFragment : Fragment() {
 
     private lateinit var placeDetailViewModel: PlaceDetailViewModel
+    private lateinit var mSelectedDirection: String
+    private lateinit var mSelectedLatLng: String
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +30,12 @@ class PlaceDetailFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         //val arguments = PlaceDetailFragmentArgs.fromBundle(requireArguments())
 
+        mSelectedDirection = arguments?.getString("direction").toString()
+        mSelectedLatLng = arguments?.getString("latlong").toString()
+
+
         val dataSource = PlaceDatabase.getInstance(application).placeDatabaseDao
-        val viewModelFactory = PlaceDetailViewModelFactory(0L, dataSource)//arguments.placeKey
+        val viewModelFactory = PlaceDetailViewModelFactory(0L, mSelectedDirection, mSelectedLatLng, dataSource)//arguments.placeKey
 
         placeDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(PlaceDetailViewModel::class.java)
 

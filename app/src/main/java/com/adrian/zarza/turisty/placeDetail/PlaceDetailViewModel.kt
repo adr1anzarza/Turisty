@@ -7,10 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.adrian.zarza.turisty.database.Place
 import com.adrian.zarza.turisty.database.PlaceDatabaseDAO
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.*
 
 class PlaceDetailViewModel(
         private val placeKey: Long = 0L,
+        private val address: String,
+        private val latLng: String,
         dataSource: PlaceDatabaseDAO) : ViewModel() , Observable {
 
     val database = dataSource
@@ -23,9 +26,9 @@ class PlaceDetailViewModel(
 
     var lastPlace = MutableLiveData<Place?>()
 
-    private var titlePlace = MutableLiveData<String>()
-    private var descriptionPlace = MutableLiveData<String>()
-    private var addressPlace = MutableLiveData<String>()
+    private var _titlePlace = MutableLiveData<String>()
+    private var _descriptionPlace = MutableLiveData<String>()
+    private var _addressPlace = MutableLiveData<String>()
 
     private val _navigateToPlaceFragment =  MutableLiveData<Boolean>()
 
@@ -35,21 +38,21 @@ class PlaceDetailViewModel(
 
     val showSnackBarEvent: LiveData<Boolean> = _showSnackbarEvent
 
-    @Bindable var placeTitleWord : String? = titlePlace.value
+    @Bindable var placeTitleWord : String? = _titlePlace.value
         set(value) {
             if (field != value) {
                 field = value
             }
         }
 
-    @Bindable var placeDescriptionWord : String? = descriptionPlace.value
+    @Bindable var placeDescriptionWord : String? = _descriptionPlace.value
         set(value) {
             if (field != value) {
                 field = value
             }
         }
 
-    @Bindable var placeAddressWord : String? = addressPlace.value
+    @Bindable var placeAddressWord : String? = address
         set(value) {
             if (field != value) {
                 field = value
@@ -57,13 +60,13 @@ class PlaceDetailViewModel(
         }
 
     @Bindable
-    fun getTask() = place
+    fun getPlace() = place
 
     init {
         place = database.getPlaceWithId(placeKey)
-        titlePlace.value = place.value?.titlePlace
-        descriptionPlace.value = place.value?.descriptionPlace
-        addressPlace.value = place.value?.addressPlace
+        _titlePlace.value = place.value?.titlePlace
+        _descriptionPlace.value = place.value?.descriptionPlace
+        _addressPlace.value = address
 
         initializeLastPlace()
     }
@@ -123,7 +126,7 @@ class PlaceDetailViewModel(
 
     private fun onNewInsertion(){
         uiScope.launch {
-            val newPlace = Place("Adrix", "Hogar", "LatLong","dirección")
+            val newPlace = Place(placeTitleWord!!, placeDescriptionWord!!, "LatLong","dirección")
             insert(newPlace)
             lastPlace.value = getLastPlaceFromDB()
             //onTaskClicked(newTask.taskId)
