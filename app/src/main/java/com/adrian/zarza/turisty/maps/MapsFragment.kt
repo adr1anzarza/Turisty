@@ -11,15 +11,18 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.adrian.zarza.turisty.R
 import com.adrian.zarza.turisty.database.PlaceDatabase
 import com.adrian.zarza.turisty.databinding.FragmentMapsBinding
+import com.adrian.zarza.turisty.place.PlaceViewModelFactory
+import com.adrian.zarza.turisty.place.PlacesFragmentDirections
+import androidx.lifecycle.Observer
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -40,6 +43,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
+
+    lateinit var mapViewModel: MapsViewModel
 
     private var mMap: GoogleMap? = null
 
@@ -74,10 +79,20 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 inflater, R.layout.fragment_maps, container, false)
 
         val application = requireNotNull(this.activity).application
-        //val arguments = PlaceDetailFragmentArgs.fromBundle(requireArguments())
+        //val arguments = FragmentArgs.fromBundle(requireArguments())
         val dataSource = PlaceDatabase.getInstance(application).placeDatabaseDao
 
+        //Instance of the VMF
+        val viewModelFactory = MapsViewModelFactory(dataSource, application)
+
+        //Reference to the VM
+        mapViewModel = ViewModelProviders.of(this, viewModelFactory).get(MapsViewModel::class.java)
+
         setHasOptionsMenu(true)
+
+        binding.lifecycleOwner = this
+
+        binding.viewModel = mapViewModel
 
         val mapFragment : SupportMapFragment? =  childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
@@ -93,6 +108,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         //Observers
 
+        mapViewModel.navigateToPlaceDetailFragment.observe(viewLifecycleOwner, Observer { navigate ->
+            navigate?.let {
+                this.findNavController().navigate(MapsFragmentDirections
+                        .actionMapsFragmentToPlaceDetailFragment())
+                mapViewModel.onMapsFragmentNavigated()
+            }
+        })
 
         return binding.root
     }
