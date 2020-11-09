@@ -229,7 +229,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                                     + " has likelihood: " + placeLikelihood.likelihood
                                     + " at " + currLatLng))
 //                            if (i > count)
-//                                break
+////                                break
                         }
                         fillPlacesList()
                     } else {
