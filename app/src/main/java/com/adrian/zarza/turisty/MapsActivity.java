@@ -83,8 +83,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //
 
         // Set up the action toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         // Set up the views
         lstPlaces = findViewById(R.id.listPlaces);

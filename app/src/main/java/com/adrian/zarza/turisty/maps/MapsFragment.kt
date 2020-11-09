@@ -37,6 +37,7 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse
 import com.google.android.libraries.places.api.net.PlacesClient
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
@@ -59,10 +60,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     // Used for selecting the Current Place.
     private val M_MAX_ENTRIES = 5
-    private var mLikelyPlaceNames = arrayListOf<String>()
-    private var mLikelyPlaceAddresses = arrayListOf<String>()
-    private var mLikelyPlaceAttributions = arrayListOf<String>()
-    private var mLikelyPlaceLatLngs = arrayListOf<LatLng>()
+    private lateinit var mLikelyPlaceNames: ArrayList<String>
+    private lateinit var mLikelyPlaceAddresses: ArrayList<String>
+    private lateinit var mLikelyPlaceAttributions: ArrayList<String>
+    private lateinit var mLikelyPlaceLatLngs: ArrayList<LatLng>
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -78,13 +79,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         setHasOptionsMenu(true)
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = (activity as AppCompatActivity?)?.supportFragmentManager?.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-
-        // Set up the action toolbar
-        val toolbar: Toolbar = binding.toolbar
-        (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
+        val mapFragment : SupportMapFragment? =  childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+        mapFragment?.getMapAsync(this)
 
         // Set up the views
         lstPlaces = binding.listPlaces
@@ -186,25 +182,24 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                         } else {
                             M_MAX_ENTRIES
                         }
-                        var i = 0
-                        //mLikelyPlaceNames = arrayOfNulls(count)
-                        //mLikelyPlaceAddresses = arrayOfNulls(count)
-                        //mLikelyPlaceAttributions = arrayOfNulls(count)
-                        //mLikelyPlaceLatLngs = arrayOfNulls(count)
-                        for (placeLikelihood in response.placeLikelihoods) {
+                        mLikelyPlaceNames = arrayListOf()
+                        mLikelyPlaceAddresses = arrayListOf()
+                        mLikelyPlaceAttributions = arrayListOf()
+                        mLikelyPlaceLatLngs = arrayListOf()
+
+                        for ((i, placeLikelihood) in response.placeLikelihoods.withIndex() ) {
                             val currPlace = placeLikelihood.place
-                            mLikelyPlaceNames[i] = currPlace.name!!
-                            mLikelyPlaceAddresses[i] = currPlace.address!!
-                            mLikelyPlaceAttributions[i] = (if (currPlace.attributions == null) null else TextUtils.join(" ", currPlace.attributions!!))!!
-                            mLikelyPlaceLatLngs[i] = currPlace.latLng!!
+                            mLikelyPlaceNames.add(i,currPlace.name!!)//currPlace.name!!
+                            mLikelyPlaceAddresses.add(i,currPlace.address!!)
+                            mLikelyPlaceAttributions.add(i, (if (currPlace.attributions == null) "" else TextUtils.join(" ", currPlace.attributions!!))!!)
+                            mLikelyPlaceLatLngs.add(i, currPlace.latLng!!)
+                            //[i] = currPlace.latLng!!
                             val currLatLng = mLikelyPlaceLatLngs[i].toString()
                             Log.i(TAG, String.format("Place " + currPlace.name
                                     + " has likelihood: " + placeLikelihood.likelihood
                                     + " at " + currLatLng))
-                            i++
-                            if (i > count - 1) {
+                            if (i > count)
                                 break
-                            }
                         }
                         fillPlacesList()
                     } else {

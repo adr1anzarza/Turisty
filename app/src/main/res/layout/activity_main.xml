@@ -15,8 +15,8 @@
             android:orientation="vertical">
 
             <fragment
-                android:id="@+id/myNavHostFragment"
-                class ="androidx.navigation.fragment.NavHostFragment"
+                android:id="@+id/myNavHostFragmentMain"
+                android:name ="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:navGraph="@navigation/navigation"

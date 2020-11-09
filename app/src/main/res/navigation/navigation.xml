@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_mapsFragment_to_placeDetailFragment"
             app:destination="@id/placeDetailFragment" />
+        <argument
+            android:name="latLong"
+            app:argType="long" />
     </fragment>
     <!--fragment
         android:id="@+id/TaskDetailFragment"

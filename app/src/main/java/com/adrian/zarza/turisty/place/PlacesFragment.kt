@@ -65,8 +65,8 @@ class PlacesFragment : Fragment() {
 
         placeViewModel.navigateToMapsFragment.observe(viewLifecycleOwner, Observer { navigate ->
             navigate?.let {
-//                this.findNavController().navigate(PlacesFragmentDirections
-//                        .actionTaskFragmentToTaskDetailFragment(navigate))
+                this.findNavController().navigate(PlacesFragmentDirections
+                        .actionHomeFragmentToMapsFragment(0L))
                 placeViewModel.onMapsFragmentNavigated()
             }
         })
