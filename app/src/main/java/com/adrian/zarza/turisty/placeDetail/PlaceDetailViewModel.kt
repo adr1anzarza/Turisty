@@ -38,6 +38,15 @@ class PlaceDetailViewModel(
 
     val showSnackBarEvent: LiveData<Boolean> = _showSnackbarEvent
 
+    init {
+        place = database.getPlaceWithId(placeKey)
+        _titlePlace.value = place.value?.titlePlace
+        _descriptionPlace.value = place.value?.descriptionPlace
+        _addressPlace.value = address
+
+        initializeLastPlace()
+    }
+
     @Bindable var placeTitleWord : String? = _titlePlace.value
         set(value) {
             if (field != value) {
@@ -52,7 +61,7 @@ class PlaceDetailViewModel(
             }
         }
 
-    @Bindable var placeAddressWord : String? = address
+    @Bindable var placeAddressWord : String? = _addressPlace.value
         set(value) {
             if (field != value) {
                 field = value
@@ -61,15 +70,6 @@ class PlaceDetailViewModel(
 
     @Bindable
     fun getPlace() = place
-
-    init {
-        place = database.getPlaceWithId(placeKey)
-        _titlePlace.value = place.value?.titlePlace
-        _descriptionPlace.value = place.value?.descriptionPlace
-        _addressPlace.value = address
-
-        initializeLastPlace()
-    }
 
     private fun isNewInsertion(place : LiveData<Place>): Boolean{
         return place.value == null
@@ -126,7 +126,7 @@ class PlaceDetailViewModel(
 
     private fun onNewInsertion(){
         uiScope.launch {
-            val newPlace = Place(placeTitleWord!!, placeDescriptionWord!!, "LatLong","dirección")
+            val newPlace = Place(placeTitleWord!!, placeDescriptionWord!!, "LatLong",address)
             insert(newPlace)
             lastPlace.value = getLastPlaceFromDB()
             //onTaskClicked(newTask.taskId)

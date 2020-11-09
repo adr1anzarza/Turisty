@@ -316,7 +316,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 + "adress: " + mLikelyPlaceAddresses[position]
                 + "latlong: " + mLikelyPlaceLatLngs[position], Toast.LENGTH_SHORT).show()
 
-        mSelectedDirection = mLikelyPlaceNames[position]
+        mSelectedDirection = mLikelyPlaceAddresses[position]
         mSelectedLatLng = mLikelyPlaceLatLngs[position]
 
         bundle = bundleOf("direction" to mSelectedDirection)
