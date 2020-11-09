@@ -30,7 +30,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="155dp"
+            android:layout_height="wrap_content"
             android:padding="4dp">
 
             <!--                app:titleTaskString="@{task}"/>-->
@@ -55,26 +55,26 @@
                 android:id="@+id/description_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:textSize="16sp"
+                app:descriptionPlaceString="@{task}"
                 app:layout_constraintEnd_toEndOf="@+id/title_item"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/title_item"
                 app:layout_constraintTop_toBottomOf="@+id/title_item"
-                tools:text="@tools:sample/lorem"
-                app:descriptionPlaceString="@{task}"/>
+                tools:text="@tools:sample/lorem" />
 
             <TextView
                 android:id="@+id/address_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
+                app:addressPlaceString="@{task}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/title_item"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/title_item"
                 app:layout_constraintTop_toBottomOf="@+id/description_item"
-                app:addressPlaceString="@{task}"
+                app:layout_constraintVertical_bias="0.028"
                 tools:text="@tools:sample/lorem" />
             <!--                app:descriptionTaskString="@{task}"/>-->
 

@@ -89,7 +89,7 @@ class PlacesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "New Action on places", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
     }
@@ -101,11 +101,11 @@ class PlacesFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_settings -> Toast.makeText(context,"Holis", Toast.LENGTH_SHORT).show()
+            R.id.action_settings -> placeViewModel.onClear()
             R.id.action_close -> {
                 AuthUI.getInstance()
                         .signOut(requireContext())
-                        .addOnCompleteListener { task:  Task<Void> ->
+                        .addOnCompleteListener {
                             activity?.finish() }
             }
 
